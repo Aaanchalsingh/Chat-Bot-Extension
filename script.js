@@ -3,17 +3,13 @@ const closeBtn = document.querySelector(".close-btn");
 const chatbox = document.querySelector(".chatbox");
 const chatInput = document.querySelector(".chat-input textarea");
 const sendChatBtn = document.querySelector(".chat-input span");
-const dotenv = require('dotenv');
-
-dotenv.config();
-
-const API_KEY = process.env.API_KEY;
 
 let userMessage = null;
+const API_KEY = "YOUR_API_KEY";
 const inputInitHeight = chatInput.scrollHeight;
 
 const createChatLi = (message, className) => {
-
+  // Create a chat <li> element with passed message and className
   const chatLi = document.createElement("li");
   chatLi.classList.add("chat", `${className}`);
   let chatContent =
@@ -22,13 +18,15 @@ const createChatLi = (message, className) => {
       : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
   chatLi.innerHTML = chatContent;
   chatLi.querySelector("p").textContent = message;
-  return chatLi;
+  return chatLi; // return chat <li> element
 };
 
 const generateResponse = (chatElement) => {
   const API_URL = "https://api.openai.com/v1/chat/completions";
   const messageElement = chatElement.querySelector("p");
- const requestOptions = {
+
+  // Define the properties and message for the API request
+  const requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
